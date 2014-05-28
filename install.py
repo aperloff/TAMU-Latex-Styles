@@ -126,7 +126,7 @@ def run_checks():
 
 def copy_set_of_files(dict, folder):
     for dst in dict:
-        if not QUIET: print "Doign folder " + str(dst) + " ... "
+        if not QUIET: print "Doing folder " + str(dst) + " ... "
         for f in range(1,len(dict[dst])):
             src  = dict[dst][f]
             dest = dict[dst][0]
@@ -141,7 +141,7 @@ def copy_files():
     copyfileBeamerDict = {
         'theme' : (theme_path, "beamerthemeTAMU.sty"),
         'color' : (color_path, "beamercolorthemetamu.sty", "beamercolorthemetamubox.sty"),
-        'outer' : (outer_path, "beamerouterthemeshadowTAMU.sty", "beamerouterthemesplittamu.sty")
+        'outer' : (outer_path, "beamerouterthemeshadowTAMU.sty", "beamerouterthemesplittamu.sty", "beamerouterthemeTAMULogoBox.png", "beamerouterthemeCMSexp.png")
     }
 
     if VERBOSE and not QUIET:

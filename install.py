@@ -141,7 +141,7 @@ def copy_files():
     copyfileBeamerDict = {
         'theme' : (theme_path, "beamerthemeTAMU.sty"),
         'color' : (color_path, "beamercolorthemetamu.sty", "beamercolorthemetamubox.sty"),
-        'outer' : (outer_path, "beamerouterthemeshadowTAMU.sty", "beamerouterthemesplittamu.sty", "beamerouterthemeTAMULogoBox.png", "beamerouterthemeCMSexp.png")
+        'outer' : (outer_path, "beamerouterthemeshadowTAMU.sty", "beamerouterthemesplittamu.sty", "beamerouterthemeTAMULogoBox.png", "ExperimentLogos/beamerouterthemeCMSexp.png")
     }
 
     if VERBOSE and not QUIET:

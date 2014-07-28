@@ -17,20 +17,22 @@ group.add_argument("-q", "--quiet", help="decrease output verbosity to minimal a
 group.add_argument("-v", "--verbose", help="Increase output verbosity of lcg-cp (-v) or srm (-debug) commands",
                     action="store_true")
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+parser.add_argument("-y", "--texlive_year", help="The texlive distribution year",
+                    default="2014")
 args = parser.parse_args()
 if(args.verbose):
      print 'Number of arguments:', len(sys.argv), 'arguments.'
      print 'Argument List:', str(sys.argv)
      print "Argument ", args, "\n"
 
-QUIET   = args.quiet
-VERBOSE = args.verbose
-DOHASH  = args.nohash
-
+QUIET        = args.quiet
+VERBOSE      = args.verbose
+DOHASH       = args.nohash
+TEXLIVE_YEAR = args.texlive_year
 
 theme_path = ""
 color_path = ""
-outer_path = ""
+Outer_path = ""
 
 def check_linux_folders():
     global theme_path
@@ -65,9 +67,9 @@ def check_osx_folders():
     global theme_path
     global color_path
     global outer_path
-    theme_path = "/usr/local/texlive/2012/texmf-dist/tex/latex/beamer/themes/theme/"
-    color_path = "/usr/local/texlive/2012/texmf-dist/tex/latex/beamer/themes/color/"
-    outer_path = "/usr/local/texlive/2012/texmf-dist/tex/latex/beamer/themes/outer/"
+    theme_path = "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/themes/theme/"
+    color_path = "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/themes/color/"
+    outer_path = "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/themes/outer/"
     theme = os.path.isdir(theme_path)
     color = os.path.isdir(color_path)
     outer = os.path.isdir(outer_path)
@@ -141,7 +143,7 @@ def copy_files():
     copyfileBeamerDict = {
         'theme' : (theme_path, "beamerthemeTAMU.sty"),
         'color' : (color_path, "beamercolorthemetamu.sty", "beamercolorthemetamubox.sty"),
-        'outer' : (outer_path, "beamerouterthemeshadowTAMU.sty", "beamerouterthemesplittamu.sty", "beamerouterthemeTAMULogoBox.png", "ExperimentLogos/beamerouterthemeCMSexp.png")
+        'outer' : (outer_path, "beamerouterthemeshadowTAMU.sty", "beamerouterthemesplittamu.sty", "UniversityLogos/beamerouterthemeTAMULogoBox.png", "ExperimentLogos/beamerouterthemeCMS.png","ExperimentLogos/beamerouterthemeCDF.png","LaboritoryLogos/beamerouterthemeCERN.png","LaboritoryLogos/beamerouterthemeFNAL.png")
     }
 
     if VERBOSE and not QUIET:

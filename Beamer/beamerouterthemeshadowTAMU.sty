@@ -9,8 +9,12 @@
 
 \ProvidesPackageRCS $Header: /home/vedranm/bitbucket/beamer/base/themes/outer/beamerouterthemeshadow.sty,v d02a7cf4d8ae 2010/06/17 09:11:41 rivanvx $
 
+\newif\ifbeamer@ULogo
+\beamer@ULogofalse
+\DeclareOptionBeamer{ULogo}{\beamer@ULogotrue}
 \def\beamer@TAMU@expLogo{}
 \DeclareOptionBeamer{expLogo}{\def\beamer@TAMU@expLogo{#1}}
+%\ExecuteOptionsBeamer{ULogo=false}
 \ProcessOptionsBeamer
 
 \mode<presentation>
@@ -55,7 +59,9 @@
           \vbox{}\vskip-.75ex%
           \leftskip0.3cm%
           \rightskip0.3cm plus1fil\leavevmode
-          \hspace{-0.3cm}\raisebox{-2.0mm}{\includegraphics[width=0.7cm]{beamerouterthemeTAMULogoBox.png}}\hspace{0.3cm}%
+          \ifbeamer@ULogo
+              \hspace{-0.3cm}\raisebox{-2.0mm}{\includegraphics[width=0.7cm]{beamerouterthemeTAMULogoBox.png}}\hspace{0.3cm}%
+          \fi
           \ifx\beamer@TAMU@expLogo\@empty%
               \insertframetitle%
           \else

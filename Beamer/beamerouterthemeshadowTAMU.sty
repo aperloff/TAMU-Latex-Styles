@@ -72,7 +72,11 @@
           \ifx\insertframesubtitle\@empty%
             \strut\par%
           \else
-            \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+            \ifbeamer@ULogo
+              \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\hspace{0.72cm}\insertframesubtitle}\strut\par}%
+            \else
+              \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+            \fi
           \fi%
           \nointerlineskip
           \vbox{}%

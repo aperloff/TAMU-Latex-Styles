@@ -16,9 +16,9 @@ group.add_argument("-q", "--quiet", help="decrease output verbosity to minimal a
                    action="store_true")
 group.add_argument("-v", "--verbose", help="Increase output verbosity of lcg-cp (-v) or srm (-debug) commands",
                     action="store_true")
-parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+parser.add_argument('--version', action='version', version='%(prog)s 1.01')
 parser.add_argument("-y", "--texlive_year", help="The texlive distribution year",
-                    default="2014")
+                    default="2015")
 args = parser.parse_args()
 if(args.verbose):
      print 'Number of arguments:', len(sys.argv), 'arguments.'

@@ -25,6 +25,10 @@ if(args.verbose):
      print 'Argument List:', str(sys.argv)
      print "Argument ", args, "\n"
 
+#
+# Global Variables
+#
+
 QUIET        = args.quiet
 VERBOSE      = args.verbose
 DOHASH       = args.nohash
@@ -33,6 +37,10 @@ TEXLIVE_YEAR = args.texlive_year
 theme_path = ""
 color_path = ""
 Outer_path = ""
+
+OS = ""
+flavor = ""
+version = ""
 
 def check_linux_folders():
     global theme_path
@@ -105,9 +113,9 @@ def run_checks():
     privledge_check()
 
     kernel = platform.system()
-    OS = ""
-    flavor = ""
-    version = ""
+    global OS
+    global flavor
+    global version
     if kernel == 'Linux':
         OS = "Linux"
         flavor = platform.linux_distribution()[0]
@@ -160,7 +168,12 @@ def do_tex_hash():
     print "* Running texhash ... *"
     print "***********************"
 
-    os.system("texhash")
+    if OS=="OSX":
+         os.system("/usr/local/texlive/"+TEXLIVE_YEAR+"/bin/x86_64-darwin/texhash")
+    elif OS=="Linux":
+         os.system("/usr/local/texlive/"+TEXLIVE_YEAR+"/bin/x86_64-linux/texhash")
+    else:
+         os.system("texhash")
 
 run_checks()
 copy_files()

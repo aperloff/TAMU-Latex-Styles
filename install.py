@@ -14,6 +14,8 @@ parser.add_argument("-nha","--nohash", help="Will run texhash command once the f
                     action="store_false")
 group.add_argument("-q", "--quiet", help="decrease output verbosity to minimal amount",
                    action="store_true")
+parser.add_argument("-p","--path", help="alternate path to the beamer base folder in the latex distribution")
+parser.add_argument("-t","--texhash", help="alternate path to the texhash executable")
 group.add_argument("-v", "--verbose", help="Increase output verbosity of lcg-cp (-v) or srm (-debug) commands",
                     action="store_true")
 parser.add_argument('--version', action='version', version='%(prog)s 1.01')
@@ -29,10 +31,13 @@ if(args.verbose):
 # Global Variables
 #
 
-QUIET        = args.quiet
-VERBOSE      = args.verbose
-DOHASH       = args.nohash
-TEXLIVE_YEAR = args.texlive_year
+QUIET             = args.quiet
+VERBOSE           = args.verbose
+DOHASH            = args.nohash
+TEXLIVE_YEAR      = args.texlive_year
+ALTERNATE_PATH    = args.path
+ALTERNATE_TEXHASH = args.texhash
+
 
 theme_path = ""
 color_path = ""
@@ -46,9 +51,10 @@ def check_linux_folders():
     global theme_path
     global color_path
     global outer_path
-    theme_path = "/usr/share/texmf/tex/latex/beamer/base/themes/theme/"
-    color_path = "/usr/share/texmf/tex/latex/beamer/base/themes/color/"
-    outer_path = "/usr/share/texmf/tex/latex/beamer/base/themes/outer/"
+    basepath = ALTERNATE_PATH if not ALTERNATE_PATH=="" else "/usr/share/texmf/tex/latex/beamer/"
+    theme_path = basepath+"base/themes/theme/"
+    color_path = basepath+"base/themes/color/"
+    outer_path = basepath+"base/themes/outer/"
     # To check if it is a directory (and it exists) use os.path.isdir
     # To check if something exists (direcotry, file, or otherwise), use os.path.exists
     theme = os.path.isdir(theme_path)
@@ -75,9 +81,10 @@ def check_osx_folders():
     global theme_path
     global color_path
     global outer_path
-    theme_path = "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/themes/theme/"
-    color_path = "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/themes/color/"
-    outer_path = "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/themes/outer/"
+    basepath = ALTERNATE_PATH if not ALTERNATE_PATH=="" else "/usr/local/texlive/"+TEXLIVE_YEAR+"/texmf-dist/tex/latex/beamer/"
+    theme_path = basepath+"themes/theme/"
+    color_path = basepath+"themes/color/"
+    outer_path = basepath+"themes/outer/"
     theme = os.path.isdir(theme_path)
     color = os.path.isdir(color_path)
     outer = os.path.isdir(outer_path)
@@ -168,7 +175,9 @@ def do_tex_hash():
     print "* Running texhash ... *"
     print "***********************"
 
-    if OS=="OSX":
+    if (ALTERNATE_TEXHASH!=""):
+         os.system(ALTERNATE_TEXHASH+"/texhash")
+    elif OS=="OSX":
          os.system("/usr/local/texlive/"+TEXLIVE_YEAR+"/bin/x86_64-darwin/texhash")
     elif OS=="Linux":
          os.system("/usr/local/texlive/"+TEXLIVE_YEAR+"/bin/x86_64-linux/texhash")
